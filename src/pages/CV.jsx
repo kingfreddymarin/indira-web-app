@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { personalInfo } from '../data/cvData';
 import { useLanguage } from '../context/LanguageContext';
 import useScrollSpy from '../hooks/useScrollSpy';
+import useSeo from '../hooks/useSeo';
 import '../styles/cv.css';
 
 const SECTION_KEYS = [
@@ -117,13 +118,17 @@ export default function CV() {
     tasks: t('cv.tasksLabel')
   };
 
+  useSeo({
+    title: t('seo.cv.title'),
+    description: t('seo.cv.description'),
+    path: '/cv',
+    image: '/og/portada-cv.png',
+    language
+  });
+
   useEffect(() => {
-    document.title =
-      language === 'es'
-        ? 'Curriculum Vitae | Licda. Indira Perea Milán'
-        : 'Curriculum Vitae | Licda. Indira Perea Milán';
     window.scrollTo(0, 0);
-  }, [language]);
+  }, []);
 
   const section = (key, meta, children) => (
     <section className="cv-section" id={`cv-${key}`} aria-labelledby={`cv-${key}-title`} key={key}>

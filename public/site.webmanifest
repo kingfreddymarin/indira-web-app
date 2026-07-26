@@ -1,0 +1,16 @@
+{
+  "name": "Licda. Indira Perea Milán — Visitadora Médica en Nicaragua",
+  "short_name": "Indira Perea",
+  "description": "Licenciada en Química y Farmacia con más de 15 años como visitadora médica y representante farmacéutica en Nicaragua.",
+  "lang": "es-NI",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f2f4ea",
+  "theme_color": "#1f4d36",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

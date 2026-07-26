@@ -148,6 +148,16 @@ export const translations = {
         }
       ]
     },
+    seo: {
+      home: {
+        title: "Licda. Indira Perea Milán | Visitadora Médica y Representante Farmacéutica en Nicaragua",
+        description: "Licenciada en Química y Farmacia con más de 15 años como visitadora médica en Nicaragua. Experiencia en Pfizer, Grupo Menarini y Laboratorios Hessel en cardiología, dermatología, hiperlipidemia y dolor. Cobertura en Managua, León, Chinandega y Granada."
+      },
+      cv: {
+        title: "Curriculum Vitae | Licda. Indira Perea Milán, Visitadora Médica en Nicaragua",
+        description: "Curriculum vitae completo de la Licda. Indira Perea Milán: 15 años de experiencia en visita médica, marcas promovidas, formación académica, reconocimientos y referencias verificables en Nicaragua."
+      }
+    },
     cv: {
       linkLabel: "Curriculum Vitae",
       backLabel: "Volver al sitio",
@@ -576,6 +586,16 @@ export const translations = {
           ]
         }
       ]
+    },
+    seo: {
+      home: {
+        title: "Licda. Indira Perea Milán | Medical Representative & Pharmaceutical Specialist in Nicaragua",
+        description: "Licensed Pharmacist and Chemist with over 15 years as a medical representative in Nicaragua. Experience with Pfizer, Menarini Group and Hessel Laboratories across cardiology, dermatology, hyperlipidemia and pain management."
+      },
+      cv: {
+        title: "Curriculum Vitae | Licda. Indira Perea Milán, Medical Representative in Nicaragua",
+        description: "Full curriculum vitae of Licda. Indira Perea Milán: 15 years of medical detailing experience, brands promoted, education, honours and verifiable references in Nicaragua."
+      }
     },
     cv: {
       linkLabel: "Curriculum Vitae",

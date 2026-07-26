@@ -1,7 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { LanguageProvider } from './context/LanguageContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import useReveal from './hooks/useReveal';
+import useSeo from './hooks/useSeo';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -16,7 +17,15 @@ import Footer from './components/Footer';
 import CV from './pages/CV';
 
 function Home() {
+  const { language, t } = useLanguage();
   useReveal();
+  useSeo({
+    title: t('seo.home.title'),
+    description: t('seo.home.description'),
+    path: '/',
+    image: '/og/portada.png',
+    language
+  });
 
   return (
     <>
