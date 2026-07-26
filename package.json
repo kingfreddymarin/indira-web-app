@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build && node scripts/build-route-meta.mjs",
-    "preview": "vite build && vite preview --host --port 4173",
-    "deploy": "vite build && firebase deploy --only hosting",
-    "deploy:preview": "vite build && firebase hosting:channel:deploy preview"
+    "preview": "npm run build && vite preview --host --port 4173",
+    "deploy": "npm run build && firebase deploy --only hosting",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
