@@ -4,14 +4,17 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite build && vite preview --host --port 4173",
+    "deploy": "vite build && firebase deploy --only hosting",
+    "deploy:preview": "vite build && firebase hosting:channel:deploy preview"
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

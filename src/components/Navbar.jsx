@@ -1,204 +1,151 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { personalInfo } from '../data/cvData';
 import { useLanguage } from '../context/LanguageContext';
-import { Sun, Moon, PhoneCall, Menu, X, ShieldCheck, Globe } from 'lucide-react';
+import useScrollSpy from '../hooks/useScrollSpy';
+import useFocusTrap from '../hooks/useFocusTrap';
 
-export default function Navbar({ theme, toggleTheme }) {
+const SECTION_IDS = ['about', 'experience', 'formulary', 'specialties', 'coverage', 'contact'];
+
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { language, toggleLanguage, t } = useLanguage();
 
+  const activeId = useScrollSpy(SECTION_IDS);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const menuRef = useFocusTrap(menuOpen, closeMenu);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const navLinks = [
-    { name: t('nav.home'), href: '#hero' },
-    { name: t('nav.about'), href: '#about' },
-    { name: t('nav.experience'), href: '#experience' },
-    { name: t('nav.specialties'), href: '#specialties' },
-    { name: t('nav.achievements'), href: '#achievements' },
-    { name: t('nav.coverage'), href: '#coverage' },
-    { name: t('nav.contact'), href: '#contact' }
+    { name: t('nav.about'), href: '#about', id: 'about' },
+    { name: t('nav.experience'), href: '#experience', id: 'experience' },
+    { name: t('formulary.eyebrow'), href: '#formulary', id: 'formulary' },
+    { name: t('nav.specialties'), href: '#specialties', id: 'specialties' },
+    { name: t('nav.coverage'), href: '#coverage', id: 'coverage' }
   ];
 
+  const waHref = `https://wa.me/${personalInfo.rawPhone}?text=${
+    language === 'es'
+      ? 'Hola%20Licda.%20Indira,%20deseo%20contactarla%20para%20una%20consulta%20profesional.'
+      : 'Hello%20Licda.%20Indira,%20I%20would%20like%20to%20connect%20for%20a%20professional%20consultation.'
+  }`;
+
   return (
-    <header
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        transition: 'all 0.3s ease',
-        background: scrolled ? 'var(--glass-bg)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border-color)' : '1px solid transparent',
-        padding: scrolled ? '0.85rem 0' : '1.25rem 0'
-      }}
-    >
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        {/* Brand Logo */}
-        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{
-            width: '42px',
-            height: '42px',
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justify: 'center',
-            color: '#fff',
-            fontWeight: '800',
-            fontSize: '1.2rem',
-            boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)'
-          }}>
-            IP
-          </div>
-          <div>
-            <div style={{ fontWeight: '800', fontSize: '1.15rem', color: 'var(--text-main)', lineHeight: 1.2 }}>
-              Indira Perea
-            </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-              <ShieldCheck size={12} color="var(--accent-emerald)" /> Lic. en Farmacia
-            </div>
-          </div>
-        </a>
+    <>
+      <a className="skip-link" href="#main">
+        {language === 'es' ? 'Saltar al contenido' : 'Skip to content'}
+      </a>
 
-        {/* Desktop Nav Links */}
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }} className="desktop-nav">
-          {navLinks.map((link, idx) => (
-            <a
-              key={idx}
-              href={link.href}
-              style={{
-                color: 'var(--text-muted)',
-                textDecoration: 'none',
-                fontWeight: '500',
-                fontSize: '0.92rem',
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={(e) => e.target.style.color = 'var(--accent-emerald)'}
-              onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        {/* Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {/* Language Toggle Switcher */}
-          <button
-            onClick={toggleLanguage}
-            aria-label="Toggle Language"
-            style={{
-              background: 'rgba(16, 185, 129, 0.12)',
-              border: '1px solid rgba(16, 185, 129, 0.3)',
-              color: 'var(--accent-emerald)',
-              padding: '0.45rem 0.85rem',
-              borderRadius: 'var(--radius-full)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              cursor: 'pointer',
-              fontWeight: '700',
-              fontSize: '0.85rem',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <Globe size={16} />
-            <span>{language === 'es' ? 'ES' : 'EN'}</span>
-          </button>
-
-          {/* Theme Switcher */}
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle Theme"
-            style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border-color)',
-              color: 'var(--text-main)',
-              width: '40px',
-              height: '40px',
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justify: 'center',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            {theme === 'dark' ? <Sun size={18} color="#f59e0b" /> : <Moon size={18} color="#3b82f6" />}
-          </button>
-
-          <a
-            href={`https://wa.me/${personalInfo.rawPhone}?text=${language === 'es' ? 'Hola%20Licda.%20Indira,%20deseo%20contactarla%20para%20una%20consulta%20profesional.' : 'Hello%20Licda.%20Indira,%20I%20would%20like%20to%20connect%20for%20a%20professional%20consultation.'}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-whatsapp"
-            style={{ padding: '0.6rem 1.25rem', fontSize: '0.88rem' }}
-          >
-            <PhoneCall size={16} />
-            <span>{t('nav.whatsapp')}</span>
+      <header className={`c-navbar${scrolled ? ' is-scrolled' : ''}`}>
+        <div className="c-navbar__container">
+          <a href="#hero" className="c-navbar__brand">
+            <span className="c-navbar__brand-name">Indira Perea</span>
+            <span className="c-navbar__brand-sub">
+              {language === 'es' ? 'Licda. en Química y Farmacia' : 'B.S. Chemistry & Pharmacy'}
+            </span>
           </a>
 
-          {/* Mobile Menu Toggle */}
+          <nav className="c-navbar__menu" aria-label={language === 'es' ? 'Principal' : 'Primary'}>
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="c-navlink"
+                aria-current={activeId === link.id ? 'true' : undefined}
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+
+          <div className="c-navbar__actions">
+            <button
+              type="button"
+              className="c-navlink"
+              onClick={toggleLanguage}
+              lang={language === 'es' ? 'en' : 'es'}
+            >
+              {language === 'es' ? 'English' : 'Español'}
+            </button>
+            <Link to="/cv" className="c-navlink">
+              {t('cv.linkLabel')}
+            </Link>
+            <a href="#contact" className="c-button c-navbar__cta">
+              {t('nav.contact')}
+            </a>
+          </div>
+
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="mobile-toggle"
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--text-main)',
-              cursor: 'pointer',
-              padding: '0.4rem',
-              display: 'none'
-            }}
+            type="button"
+            aria-label={
+              menuOpen
+                ? language === 'es' ? 'Cerrar menú' : 'Close menu'
+                : language === 'es' ? 'Abrir menú' : 'Open menu'
+            }
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            className={`hamburger-menu${menuOpen ? ' is-open' : ''}`}
+            onClick={() => setMenuOpen((open) => !open)}
           >
-            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            <span />
+            <span />
+            <span />
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Dropdown */}
-      {mobileMenuOpen && (
-        <div style={{
-          background: 'var(--bg-primary)',
-          borderBottom: '1px solid var(--border-color)',
-          padding: '1.5rem 1.5rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem'
-        }}>
-          {navLinks.map((link, idx) => (
+      <div
+        id="mobile-nav"
+        ref={menuRef}
+        className={`mobile-nav${menuOpen ? ' is-open' : ''}`}
+        aria-hidden={!menuOpen}
+        {...(menuOpen ? {} : { inert: '' })}
+      >
+        <nav className="mobile-nav-inner" aria-label={language === 'es' ? 'Principal' : 'Primary'}>
+          {navLinks.map((link) => (
             <a
-              key={idx}
+              key={link.href}
               href={link.href}
-              onClick={() => setMobileMenuOpen(false)}
-              style={{
-                color: 'var(--text-main)',
-                textDecoration: 'none',
-                fontWeight: '600',
-                fontSize: '1rem'
-              }}
+              className="nav-link-mobile"
+              aria-current={activeId === link.id ? 'true' : undefined}
+              onClick={closeMenu}
             >
               {link.name}
             </a>
           ))}
-        </div>
-      )}
 
-      <style>{`
-        @media (max-width: 920px) {
-          .desktop-nav { display: none !important; }
-          .mobile-toggle { display: block !important; }
-        }
-      `}</style>
-    </header>
+          <Link to="/cv" className="nav-link-mobile" onClick={closeMenu}>
+            {t('cv.linkLabel')}
+          </Link>
+
+          <div className="mobile-nav__footer">
+            <a href="#contact" className="c-button" onClick={closeMenu}>
+              {t('nav.contact')}
+            </a>
+            <a href={waHref} target="_blank" rel="noopener noreferrer" className="c-button-outline">
+              {t('nav.whatsapp')}
+            </a>
+            <button
+              type="button"
+              className="c-textlink"
+              lang={language === 'es' ? 'en' : 'es'}
+              onClick={() => {
+                toggleLanguage();
+                closeMenu();
+              }}
+            >
+              {language === 'es' ? 'Read in English' : 'Ver en español'}
+            </button>
+          </div>
+        </nav>
+      </div>
+    </>
   );
 }

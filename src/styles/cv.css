@@ -1,0 +1,687 @@
+/* ==========================================================================
+   Curriculum Vitae — /cv
+
+   Written mobile-first: the base rules are the phone layout, and each
+   min-width query adds structure as room appears. The document reads as a
+   traditional CV — masthead, ruled sections, a year gutter, dense records —
+   dressed in the brand's palette and display serif.
+
+   A print stylesheet at the bottom turns the page into an actual CV document
+   so "Save as PDF" produces something she can send.
+   ========================================================================== */
+
+.cv {
+  --cv-gutter: clamp(1.25rem, 0.6rem + 2.8vw, 3.5rem);
+  --cv-rule: color-mix(in srgb, var(--brand-ink) 18%, transparent);
+  --cv-max: 60rem;
+
+  min-height: 100vh;
+  background-color: var(--cream);
+  color: var(--green);
+  padding-bottom: 4rem;
+}
+
+/* --- Toolbar ------------------------------------------------------------- */
+.cv-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem var(--cv-gutter);
+  background-color: var(--brand-surface-veil);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--cv-rule);
+}
+
+.cv-bar__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  padding: 0.5rem 0;
+  min-height: 44px;
+}
+
+.cv-bar__back svg {
+  transition: transform 250ms var(--brand-reveal-easing);
+}
+
+.cv-bar__back:hover svg {
+  transform: translateX(-3px);
+}
+
+.cv-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cv-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  min-height: 44px;
+  border: 1px solid var(--green);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--green);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: background-color var(--brand-transition), color var(--brand-transition);
+}
+
+.cv-print:hover {
+  background-color: var(--green);
+  color: var(--green-soft);
+}
+
+.cv-lang {
+  background: none;
+  border: 0;
+  padding: 0.5rem;
+  min-height: 44px;
+  font-size: var(--text-sm);
+  color: var(--green);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Masthead ------------------------------------------------------------ */
+.cv-masthead {
+  max-width: var(--cv-max);
+  margin-inline: auto;
+  padding: clamp(2rem, 1rem + 5vw, 4rem) var(--cv-gutter) 0;
+}
+
+.cv-masthead__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.cv-portrait {
+  width: 5.5rem;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 15%;
+  border-radius: var(--radius-card);
+  flex-shrink: 0;
+}
+
+@media (min-width: 40em) {
+  .cv-portrait {
+    width: 9rem;
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.cv-masthead__doc {
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+}
+
+.cv-masthead__name {
+  font-family: var(--font-display);
+  font-variation-settings: var(--brand-display-settings);
+  font-size: clamp(2.25rem, 1.4rem + 4vw, 4.5rem);
+  line-height: 0.98;
+  font-weight: 700;
+  margin: 0.5rem 0 0;
+  text-wrap: balance;
+}
+
+.cv-masthead__role {
+  font-size: var(--text-lg);
+  line-height: 1.35;
+  margin-top: 0.75rem;
+  max-width: 40ch;
+  color: var(--brand-ink-muted);
+}
+
+.cv-contact {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem 2rem;
+  margin: 1.75rem 0 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--cv-rule);
+  list-style: none;
+}
+
+.cv-contact div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.cv-contact dt,
+.cv-field__label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+}
+
+.cv-contact dd {
+  margin: 0;
+  font-size: var(--text-sm);
+}
+
+.cv-contact a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--cv-rule);
+  padding-bottom: 1px;
+}
+
+.cv-contact a:hover {
+  border-bottom-color: var(--green);
+}
+
+/* --- Section index ------------------------------------------------------- */
+/* Phone: a horizontally scrolling chip rail pinned under the toolbar. */
+.cv-index {
+  position: sticky;
+  top: 61px;
+  z-index: 10;
+  margin-top: 2rem;
+  padding: 0.75rem var(--cv-gutter);
+  background-color: var(--brand-surface-veil);
+  backdrop-filter: blur(10px);
+  border-block: 1px solid var(--cv-rule);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cv-index::-webkit-scrollbar {
+  display: none;
+}
+
+.cv-index__list {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: max-content;
+}
+
+.cv-index a {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--cv-rule);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-xs);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.cv-index a[aria-current='true'] {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: var(--green-soft);
+}
+
+/* --- Body ---------------------------------------------------------------- */
+.cv-body {
+  max-width: var(--cv-max);
+  margin-inline: auto;
+  padding: 0 var(--cv-gutter);
+}
+
+.cv-section {
+  padding-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.cv-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--green);
+}
+
+.cv-section__title {
+  font-family: var(--font-display);
+  font-variation-settings: var(--brand-display-settings);
+  font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+  line-height: 1.1;
+  font-weight: 600;
+  margin: 0;
+}
+
+.cv-section__meta {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cv-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  max-width: 68ch;
+}
+
+/* --- Experience entries -------------------------------------------------- */
+.cv-entry {
+  border-bottom: 1px solid var(--cv-rule);
+}
+
+.cv-entry__trigger {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 1rem;
+  width: 100%;
+  padding: 1.25rem 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.cv-entry__years {
+  grid-column: 1 / -1;
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.cv-entry__company {
+  font-family: var(--font-display);
+  font-variation-settings: var(--brand-display-settings);
+  font-size: clamp(1.125rem, 1rem + 0.8vw, 1.5rem);
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+.cv-entry__role {
+  grid-column: 1 / -1;
+  font-size: var(--text-sm);
+  color: var(--brand-ink-muted);
+}
+
+.cv-entry__icon {
+  align-self: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 350ms var(--brand-reveal-easing);
+}
+
+.cv-entry__trigger[aria-expanded='true'] .cv-entry__icon {
+  transform: rotate(135deg);
+}
+
+.cv-entry__panel {
+  overflow: hidden;
+  transition: height 380ms var(--brand-reveal-easing);
+}
+
+.cv-entry__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-bottom: 1.75rem;
+  max-width: 68ch;
+}
+
+.cv-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cv-taglist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cv-tag {
+  font-size: var(--text-xs);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--yellow);
+}
+
+.cv-tag.plain {
+  background: transparent;
+  border: 1px solid var(--cv-rule);
+}
+
+.cv-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+/* --- Generic record rows (education, awards, coverage, references) ------- */
+.cv-records {
+  display: flex;
+  flex-direction: column;
+}
+
+.cv-record {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--cv-rule);
+}
+
+.cv-record__year {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.cv-record__title {
+  font-weight: 600;
+  font-size: var(--text-base);
+  line-height: 1.3;
+}
+
+.cv-record__sub {
+  font-size: var(--text-sm);
+  color: var(--brand-ink-muted);
+  line-height: 1.45;
+}
+
+.cv-record__body {
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  margin-top: 0.35rem;
+}
+
+.cv-skills {
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem 0 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.cv-skills li {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--cv-rule);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.cv-skills li::before {
+  content: '—';
+  color: var(--brand-ink-muted);
+  flex-shrink: 0;
+}
+
+.cv-note {
+  font-size: var(--text-sm);
+  color: var(--brand-ink-muted);
+  padding-top: 1.25rem;
+  max-width: 62ch;
+}
+
+.cv-foot {
+  max-width: var(--cv-max);
+  margin: clamp(3rem, 2rem + 3vw, 5rem) auto 0;
+  padding: 1.5rem var(--cv-gutter) 0;
+  border-top: 1px solid var(--cv-rule);
+  font-size: var(--text-xs);
+  color: var(--brand-ink-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: space-between;
+}
+
+/* --------------------------------------------------------------------------
+   ≥ 40em — small tablet: contact grid gains a second column
+   -------------------------------------------------------------------------- */
+@media (min-width: 40em) {
+  .cv-contact {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cv-entry__trigger {
+    grid-template-columns: 7rem 1fr auto;
+    gap: 0.35rem 1.5rem;
+    align-items: baseline;
+  }
+
+  .cv-entry__years {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    padding-top: 0.3em;
+  }
+
+  .cv-entry__company {
+    grid-column: 2;
+  }
+
+  .cv-entry__icon {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+
+  .cv-entry__role {
+    grid-column: 2;
+  }
+
+  .cv-entry__inner {
+    padding-left: 8.5rem;
+  }
+
+  .cv-record {
+    grid-template-columns: 7rem 1fr;
+    gap: 0.35rem 1.5rem;
+  }
+
+  .cv-record__year {
+    grid-row: 1 / span 3;
+    padding-top: 0.2em;
+  }
+
+  .cv-skills {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   ≥ 64em — laptop: the index becomes a fixed side rail beside the document
+   -------------------------------------------------------------------------- */
+@media (min-width: 64em) {
+  .cv-layout {
+    display: grid;
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: 4rem;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: var(--cv-gutter);
+    align-items: start;
+  }
+
+  .cv-masthead,
+  .cv-body,
+  .cv-foot {
+    padding-inline: 0;
+    margin-inline: 0;
+    max-width: none;
+  }
+
+  .cv-masthead {
+    grid-column: 1 / -1;
+  }
+
+  .cv-index {
+    position: sticky;
+    top: 6rem;
+    grid-column: 1;
+    margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+    padding: 0;
+    background: none;
+    backdrop-filter: none;
+    border: 0;
+    overflow: visible;
+  }
+
+  .cv-index__list {
+    flex-direction: column;
+    gap: 0;
+    width: auto;
+  }
+
+  .cv-index a {
+    display: block;
+    padding: 0.55rem 0 0.55rem 1rem;
+    border: 0;
+    border-left: 2px solid var(--cv-rule);
+    border-radius: 0;
+    font-size: var(--text-sm);
+    color: var(--brand-ink-muted);
+  }
+
+  .cv-index a:hover {
+    color: var(--green);
+    border-left-color: var(--brand-ink-muted);
+  }
+
+  .cv-index a[aria-current='true'] {
+    background: none;
+    color: var(--green);
+    border-left-color: var(--green);
+    font-weight: 600;
+  }
+
+  .cv-body {
+    grid-column: 2;
+  }
+
+  .cv-foot {
+    grid-column: 2;
+  }
+
+  .cv-contact {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Print — produce an actual CV document
+   -------------------------------------------------------------------------- */
+@media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+
+  .cv-bar,
+  .cv-index {
+    display: none !important;
+  }
+
+  .cv {
+    background: #fff;
+    padding: 0;
+  }
+
+  .cv-layout {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .cv-masthead,
+  .cv-body,
+  .cv-foot {
+    max-width: none;
+    padding-inline: 0;
+    margin-inline: 0;
+  }
+
+  /* Every collapsed record opens for the printed copy */
+  .cv-entry__panel {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .cv-entry__icon {
+    display: none;
+  }
+
+  .cv-entry__trigger {
+    padding-bottom: 0.5rem;
+  }
+
+  /* Sections flow across pages; only individual records stay whole, so a long
+     Experience list doesn't push a mostly-empty page. */
+  .cv-section {
+    padding-top: 1.25rem;
+  }
+
+  /* The on-screen count reads like a page number in print */
+  .cv-section__meta {
+    display: none;
+  }
+
+  .cv-section__head {
+    break-after: avoid;
+  }
+
+  .cv-entry,
+  .cv-record {
+    break-inside: avoid;
+  }
+
+  .cv-masthead__name {
+    font-size: 28pt;
+  }
+
+  .cv-section__title {
+    font-size: 13pt;
+  }
+
+  body,
+  .cv {
+    font-size: 10pt;
+  }
+
+  .cv-tag {
+    border: 1px solid #999;
+    background: transparent;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

@@ -12,6 +12,10 @@ export const translations = {
     },
     hero: {
       badge: "Especialista en Adopción Farmacéutica",
+      displayLine1: "Quince años",
+      displayLine2: "de receta en receta",
+      scrollLabel: "Ir a la trayectoria",
+      credentials: ["Licda. en Química y Farmacia", "Managua, Nicaragua", "Ex-Pfizer · Menarini · Hessel"],
       headlinePrefix: "Más de ",
       headlineYears: "15 años",
       headlineMiddle: " impulsando la adopción de productos farmacéuticos en ",
@@ -143,6 +147,54 @@ export const translations = {
           ]
         }
       ]
+    },
+    cv: {
+      linkLabel: "Curriculum Vitae",
+      backLabel: "Volver al sitio",
+      documentLabel: "Curriculum Vitae",
+      printLabel: "Guardar como PDF",
+      printHint: "Se abre el diálogo de impresión del navegador. Elige “Guardar como PDF”.",
+      updated: "Actualizado",
+      indexLabel: "Secciones",
+      expandAll: "Abrir todo",
+      collapseAll: "Cerrar todo",
+      sections: {
+        profile: "Perfil profesional",
+        experience: "Experiencia",
+        education: "Formación académica",
+        skills: "Competencias",
+        areas: "Áreas terapéuticas",
+        awards: "Reconocimientos",
+        coverage: "Cobertura territorial",
+        references: "Referencias"
+      },
+      objectiveTitle: "Objetivo",
+      objectiveText: "Ser un pilar estratégico para el fortalecimiento corporativo, trabajando con visión emprendedora, liderazgo en equipo y enfoque constante al cumplimiento de metas de ventas y docencia médica.",
+      personalTitle: "Datos personales",
+      phone: "Teléfono",
+      email: "Correo",
+      address: "Dirección",
+      vehicle: "Movilidad",
+      civil: "Estado civil",
+      brandsLabel: "Marcas promovidas",
+      tasksLabel: "Tareas e hitos",
+      zoneLabel: "Zona",
+      referenceNote: "Referencias disponibles a solicitud. Contactos verificables listados a continuación."
+    },
+    formulary: {
+      eyebrow: "Vademécum personal",
+      title: "Cada marca que he llevado al consultorio",
+      lede: "Quince años de portafolio, ordenado por marca, laboratorio y área terapéutica. Filtra por área para ver dónde se concentra la experiencia.",
+      filterAll: "Todas",
+      colBrand: "Marca",
+      colArea: "Área terapéutica",
+      colLab: "Laboratorio",
+      colYears: "Años",
+      unclassified: "Cartera multilínea",
+      empty: "No hay marcas en esta área.",
+      sortBy: "Ordenar por",
+      note: "Las áreas terapéuticas provienen de la clasificación del propio CV. Carbimen, Disgren y Viagra figuran en la cartera de su laboratorio sin área asignada.",
+      countLabel: "marcas"
     },
     specialties: {
       badge: "Áreas de Enfoque Terapéutico",
@@ -352,6 +404,9 @@ export const translations = {
       messageLabel: "Mensaje *",
       messagePlaceholder: "Escriba aquí los detalles de su requerimiento o propuesta profesional...",
       submitBtn: "Enviar Mensaje por WhatsApp",
+      errorName: "Escribe tu nombre para saber con quién hablo.",
+      errorContact: "Deja un correo o teléfono para poder responderte.",
+      errorMessage: "Cuéntame brevemente qué necesitas.",
       subjects: {
         rep: "Oportunidad de Representación / Visita Médica",
         training: "Docencia Hospitalaria / Capacitación",
@@ -360,6 +415,12 @@ export const translations = {
       }
     },
     footer: {
+      navTitle: "Navegación",
+      contactTitle: "Contacto",
+      profileTitle: "Perfil",
+      linkReferences: "Referencias",
+      linkCv: "Solicitar CV",
+      terms: "Aviso de privacidad",
       tagline: "Especialista con más de 15 años impulsando la adopción clínica de medicamentos éticos y el relacionamiento médico en Nicaragua.",
       backToTop: "Volver Arriba",
       rights: "Todos los derechos reservados.",
@@ -380,6 +441,10 @@ export const translations = {
     },
     hero: {
       badge: "Pharmaceutical Adoption Specialist",
+      displayLine1: "Fifteen years",
+      displayLine2: "one prescription at a time",
+      scrollLabel: "Skip to the record",
+      credentials: ["B.S. Chemistry & Pharmacy", "Managua, Nicaragua", "Ex-Pfizer · Menarini · Hessel"],
       headlinePrefix: "Over ",
       headlineYears: "15 years",
       headlineMiddle: " driving pharmaceutical product adoption across ",
@@ -511,6 +576,54 @@ export const translations = {
           ]
         }
       ]
+    },
+    cv: {
+      linkLabel: "Curriculum Vitae",
+      backLabel: "Back to site",
+      documentLabel: "Curriculum Vitae",
+      printLabel: "Save as PDF",
+      printHint: "Opens your browser's print dialog. Choose “Save as PDF”.",
+      updated: "Updated",
+      indexLabel: "Sections",
+      expandAll: "Open all",
+      collapseAll: "Close all",
+      sections: {
+        profile: "Professional profile",
+        experience: "Experience",
+        education: "Education",
+        skills: "Competencies",
+        areas: "Therapeutic areas",
+        awards: "Honours",
+        coverage: "Territorial coverage",
+        references: "References"
+      },
+      objectiveTitle: "Objective",
+      objectiveText: "To be a strategic pillar for corporate growth, working with an entrepreneurial outlook, team leadership, and a constant focus on meeting sales targets and medical education goals.",
+      personalTitle: "Personal details",
+      phone: "Phone",
+      email: "Email",
+      address: "Address",
+      vehicle: "Mobility",
+      civil: "Marital status",
+      brandsLabel: "Brands promoted",
+      tasksLabel: "Tasks and milestones",
+      zoneLabel: "Territory",
+      referenceNote: "References available on request. Verifiable contacts listed below."
+    },
+    formulary: {
+      eyebrow: "Personal formulary",
+      title: "Every brand I have carried into the clinic",
+      lede: "Fifteen years of portfolio, indexed by brand, laboratory and therapeutic area. Filter by area to see where the depth sits.",
+      filterAll: "All",
+      colBrand: "Brand",
+      colArea: "Therapeutic area",
+      colLab: "Laboratory",
+      colYears: "Years",
+      unclassified: "Multi-line portfolio",
+      empty: "No brands in this area.",
+      sortBy: "Sort by",
+      note: "Therapeutic areas come from the CV's own classification. Carbimen, Disgren and Viagra are listed under their laboratory's portfolio without an assigned area.",
+      countLabel: "brands"
     },
     specialties: {
       badge: "Therapeutic Focus Areas",
@@ -720,6 +833,9 @@ export const translations = {
       messageLabel: "Message *",
       messagePlaceholder: "Type details regarding your requirement or professional opportunity here...",
       submitBtn: "Send Message via WhatsApp",
+      errorName: "Add your name so I know who I am speaking with.",
+      errorContact: "Leave an email or phone number so I can reply.",
+      errorMessage: "Tell me briefly what you need.",
       subjects: {
         rep: "Medical Detailing / Representation Opportunity",
         training: "Hospital Staff Education / Training",
@@ -728,6 +844,12 @@ export const translations = {
       }
     },
     footer: {
+      navTitle: "Navigation",
+      contactTitle: "Contact",
+      profileTitle: "Profile",
+      linkReferences: "References",
+      linkCv: "Request CV",
+      terms: "Privacy notice",
       tagline: "Specialist with 15+ years driving clinical adoption of ethical pharmaceuticals and physician relationships in Nicaragua.",
       backToTop: "Back to Top",
       rights: "All rights reserved.",

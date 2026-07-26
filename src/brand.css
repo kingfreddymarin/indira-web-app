@@ -1,0 +1,69 @@
+/* ==========================================================================
+   BRAND TOKENS — the only file you need to edit to re-skin the whole site.
+   Everything else (index.css, components) reads from these variables.
+   ==========================================================================
+
+   How to rebrand
+   --------------
+   1. Swap the six colours in "Palette" below. Keep the roles, change the hex.
+   2. Swap the two font families in "Typography" (and the <link> in index.html).
+   3. Optionally adjust radii / motion.
+   Nothing else needs to change.
+
+   Colour roles at a glance
+   ------------------------
+   --brand-surface     page background, the canvas everything sits on
+   --brand-ink         primary brand colour: headings, body text, dark sections,
+                       filled buttons, borders
+   --brand-on-ink      text/icons placed ON --brand-ink (must pass contrast)
+   --brand-tint        soft tinted section background (light band)
+   --brand-alt         second tinted section background (alternating band)
+   --brand-accent      highlight fill: label chips, icon medallions, badges
+   --brand-accent-2/3  extra chip fills for variety
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* ---- Palette ---------------------------------------------------------- */
+  --brand-surface: #f2f4ea;
+  --brand-ink: #1f4d36;
+  --brand-on-ink: #cfe3cc;
+  --brand-tint: #cfe3cc;
+  --brand-alt: #d4e5e6;
+  --brand-accent: #f1eaba;
+  --brand-accent-2: #ffe8d9;
+  --brand-accent-3: #f7d0b3;
+  --brand-rule: #454545;
+
+  /* Derived — recomputed from the palette, no need to touch */
+  --brand-ink-hover: color-mix(in srgb, var(--brand-ink) 90%, transparent);
+  --brand-ink-soft: color-mix(in srgb, var(--brand-ink) 20%, transparent);
+  --brand-ink-muted: color-mix(in srgb, var(--brand-ink) 65%, transparent);
+  --brand-on-ink-muted: color-mix(in srgb, var(--brand-on-ink) 50%, transparent);
+  --brand-surface-veil: color-mix(in srgb, var(--brand-surface) 94%, transparent);
+  --brand-scrim: color-mix(in srgb, var(--brand-ink) 85%, transparent);
+
+  /* ---- Typography ------------------------------------------------------- */
+  /* Display face: high-contrast serif used for every heading.
+     Body face: grotesque sans used for copy, buttons, nav and forms. */
+  --brand-font-display: 'Fraunces', 'Times New Roman', serif;
+  --brand-font-body: 'Figtree', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --brand-display-settings: 'SOFT' 0, 'WONK' 0, 'opsz' 144;
+
+  /* ---- Shape ------------------------------------------------------------ */
+  --brand-radius-card: 9px;
+  --brand-radius-chip: 4px;
+  --brand-radius-pill: 100px;
+
+  /* ---- Elevation & motion ----------------------------------------------- */
+  --brand-shadow-medallion: 4px 4px 15px 0 rgba(0, 0, 0, 0.19);
+  --brand-shadow-badge: 2px 10px 17px -11px rgba(0, 0, 0, 0.31);
+  --brand-transition: 300ms ease;
+  --brand-reveal-duration: 800ms;
+  --brand-reveal-easing: cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  /* ---- Rhythm ----------------------------------------------------------- */
+  --brand-content-max: 1280px;
+  --brand-section-padding-y: 160px;
+  --brand-section-padding-x: 60px;
+  --brand-nav-height: 92px;
+}

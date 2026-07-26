@@ -1,318 +1,207 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { personalInfo } from '../data/cvData';
 import { useLanguage } from '../context/LanguageContext';
-import { Phone, Mail, MapPin, Send, CheckCircle2, MessageSquare, PhoneCall } from 'lucide-react';
+
+const SUBJECT_KEYS = ['rep', 'training', 'refs', 'other'];
 
 export default function Contact() {
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const { language, t } = useLanguage();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: t('contact.subjects.rep'),
-    message: ''
-  });
+  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: '', contact: '', subject: 'rep', message: '' });
+  const [errors, setErrors] = useState({});
+  const fieldRefs = { name: useRef(null), contact: useRef(null), message: useRef(null) };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-
-    // Build custom WhatsApp link with form contents
-    const text = language === 'es'
-      ? `Hola Licda. Indira Perea,%0A%0AMi nombre es: ${encodeURIComponent(formData.name)}%0ACorreo/Tel: ${encodeURIComponent(formData.email || formData.phone)}%0AAsunto: ${encodeURIComponent(formData.subject)}%0AMensaje: ${encodeURIComponent(formData.message)}`
-      : `Hello Licda. Indira Perea,%0A%0AMy name is: ${encodeURIComponent(formData.name)}%0AContact: ${encodeURIComponent(formData.email || formData.phone)}%0ASubject: ${encodeURIComponent(formData.subject)}%0AMessage: ${encodeURIComponent(formData.message)}`;
-    
-    setTimeout(() => {
-      window.open(`https://wa.me/${personalInfo.rawPhone}?text=${text}`, '_blank');
-    }, 800);
+  const validate = (values) => {
+    const next = {};
+    if (!values.name.trim()) next.name = t('contact.errorName');
+    if (!values.contact.trim()) next.contact = t('contact.errorContact');
+    if (!values.message.trim()) next.message = t('contact.errorMessage');
+    return next;
   };
 
+  const update = (field) => (event) => {
+    const value = event.target.value;
+    setForm((current) => ({ ...current, [field]: value }));
+    // Clear an error as soon as the person fixes it, rather than on next submit
+    if (errors[field] && value.trim()) {
+      setErrors((current) => {
+        const next = { ...current };
+        delete next[field];
+        return next;
+      });
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const found = validate(form);
+
+    if (Object.keys(found).length) {
+      setErrors(found);
+      const first = ['name', 'contact', 'message'].find((key) => found[key]);
+      fieldRefs[first]?.current?.focus();
+      return;
+    }
+
+    setErrors({});
+    setSubmitted(true);
+
+    const subject = t(`contact.subjects.${form.subject}`);
+    const lines =
+      language === 'es'
+        ? [
+            'Hola Licda. Indira Perea,',
+            '',
+            `Mi nombre es: ${form.name}`,
+            `Correo/Tel: ${form.contact}`,
+            `Asunto: ${subject}`,
+            `Mensaje: ${form.message}`
+          ]
+        : [
+            'Hello Licda. Indira Perea,',
+            '',
+            `My name is: ${form.name}`,
+            `Contact: ${form.contact}`,
+            `Subject: ${subject}`,
+            `Message: ${form.message}`
+          ];
+
+    window.open(
+      `https://wa.me/${personalInfo.rawPhone}?text=${encodeURIComponent(lines.join('\n'))}`,
+      '_blank',
+      'noopener'
+    );
+  };
+
+  const field = (name, label, Element = 'input', extra = {}) => (
+    <div className="c-field">
+      <label className="c-field__label" htmlFor={`field-${name}`}>
+        {label}
+      </label>
+      <Element
+        id={`field-${name}`}
+        ref={fieldRefs[name]}
+        className="c-form-field"
+        name={name}
+        value={form[name]}
+        onChange={update(name)}
+        aria-invalid={errors[name] ? 'true' : undefined}
+        aria-describedby={errors[name] ? `error-${name}` : undefined}
+        {...extra}
+      />
+      {errors[name] && (
+        <p className="c-field__error" id={`error-${name}`}>
+          {errors[name]}
+        </p>
+      )}
+    </div>
+  );
+
   return (
-    <section id="contact" style={{ padding: '6.5rem 0', background: 'var(--bg-secondary)', position: 'relative' }}>
-      <div className="container">
-        
-        {/* Header */}
-        <div className="section-header">
-          <span className="badge">
-            <MessageSquare size={14} /> {t('contact.badge')}
+    <section id="contact" className="c-section light-green2" aria-labelledby="contact-title">
+      <div className="c-split">
+        <div className="c-stack">
+          <span className="c-eyebrow" data-ix="load-under">
+            {t('contact.badge')}
           </span>
-          <h2 className="section-title">
+
+          <h2 id="contact-title" data-ix="load-right">
             {t('contact.titlePrefix')}
-            <span className="text-gradient-emerald">{t('contact.titleHighlight')}</span>
+            {t('contact.titleHighlight')}
           </h2>
-          <p className="section-subtitle">
-            {t('contact.subtitle')}
-          </p>
-        </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '3rem' }} className="contact-grid">
-          
-          {/* Left Info Panel */}
-          <div className="glass-card" style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <h3 style={{ fontSize: '1.6rem', color: 'var(--text-main)', marginBottom: '1rem' }}>
-                {t('contact.infoTitle')}
-              </h3>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', fontSize: '0.96rem', lineHeight: 1.6 }}>
-                {t('contact.infoSubtitle')}
-              </p>
+          <p className="lede measure-wide">{t('contact.subtitle')}</p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2.5rem' }}>
-                {/* Phone */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{
-                    background: 'rgba(16, 185, 129, 0.15)',
-                    color: 'var(--accent-emerald)',
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justify: 'center',
-                    flexShrink: 0
-                  }}>
-                    <Phone size={22} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '600' }}>{t('contact.phoneLabel')}</div>
-                    <a href={`tel:${personalInfo.rawPhone}`} style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-main)', textDecoration: 'none' }}>
-                      {personalInfo.phone}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <div style={{
-                    background: 'rgba(6, 182, 212, 0.15)',
-                    color: 'var(--accent-teal)',
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justify: 'center',
-                    flexShrink: 0
-                  }}>
-                    <Mail size={22} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '600' }}>{t('contact.emailLabel')}</div>
-                    <a href={`mailto:${personalInfo.email}`} style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text-main)', textDecoration: 'none' }}>
-                      {personalInfo.email}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Address */}
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <div style={{
-                    background: 'rgba(245, 158, 11, 0.15)',
-                    color: 'var(--accent-gold)',
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justify: 'center',
-                    flexShrink: 0
-                  }}>
-                    <MapPin size={22} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: '600' }}>{t('contact.addressLabel')}</div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: '600', color: 'var(--text-main)', lineHeight: 1.4 }}>
-                      {personalInfo.location}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick WhatsApp Action Box */}
-            <div style={{
-              background: 'rgba(37, 211, 102, 0.1)',
-              border: '1px solid rgba(37, 211, 102, 0.3)',
-              padding: '1.25rem',
-              borderRadius: 'var(--radius-md)',
-              textAlign: 'center'
-            }}>
-              <div style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--text-main)', marginBottom: '0.5rem' }}>
-                {t('contact.waBoxTitle')}
-              </div>
-              <a
-                href={`https://wa.me/${personalInfo.rawPhone}?text=${language === 'es' ? 'Hola%20Licda.%20Indira,%20quisiera%20agendar%20una%20reuni%C3%B3n.' : 'Hello%20Licda.%20Indira,%20I%20would%20like%20to%20schedule%20a%20meeting.'}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-whatsapp"
-                style={{ width: '100%' }}
-              >
-                <PhoneCall size={18} />
-                <span>{t('contact.waBoxBtn')}</span>
+          <div className="c-stack" style={{ gap: '1.25rem' }}>
+            <div className="c-field">
+              <span className="c-field__label">{t('contact.phoneLabel')}</span>
+              <a className="c-textlink" href={`tel:+${personalInfo.rawPhone}`}>
+                {personalInfo.phone}
               </a>
             </div>
+            <div className="c-field">
+              <span className="c-field__label">{t('contact.emailLabel')}</span>
+              <a className="c-textlink" href={`mailto:${personalInfo.email}`}>
+                {personalInfo.email}
+              </a>
+            </div>
+            <div className="c-field">
+              <span className="c-field__label">{t('contact.addressLabel')}</span>
+              <span className="c-card__text">{personalInfo.location}</span>
+            </div>
           </div>
-
-          {/* Right Contact Form */}
-          <div className="glass-card" style={{ padding: '2.5rem' }}>
-            <h3 style={{ fontSize: '1.6rem', color: 'var(--text-main)', marginBottom: '1.5rem' }}>
-              {t('contact.formTitle')}
-            </h3>
-
-            {formSubmitted ? (
-              <div style={{
-                textAlign: 'center',
-                padding: '3rem 1.5rem',
-                animation: 'fadeIn 0.4s ease-out'
-              }}>
-                <div style={{
-                  background: 'rgba(16, 185, 129, 0.15)',
-                  color: 'var(--accent-emerald)',
-                  width: '64px',
-                  height: '64px',
-                  borderRadius: '50%',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justify: 'center',
-                  marginBottom: '1.25rem'
-                }}>
-                  <CheckCircle2 size={36} />
-                </div>
-                <h4 style={{ fontSize: '1.4rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>
-                  {t('contact.successTitle')}
-                </h4>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.96rem', marginBottom: '1.5rem' }}>
-                  {t('contact.successSub')}
-                </p>
-                <button
-                  onClick={() => setFormSubmitted(false)}
-                  className="btn btn-secondary"
-                >
-                  {t('contact.sendAnother')}
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="form-row">
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-                      {t('contact.nameLabel')}
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder={t('contact.namePlaceholder')}
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      style={{
-                        width: '100%',
-                        padding: '0.85rem 1rem',
-                        borderRadius: 'var(--radius-sm)',
-                        background: 'var(--bg-primary)',
-                        border: '1px solid var(--border-color)',
-                        color: 'var(--text-main)',
-                        fontSize: '0.95rem',
-                        outline: 'none'
-                      }}
-                    />
-                  </div>
-
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-                      {t('contact.emailOrPhoneLabel')}
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder={t('contact.emailOrPhonePlaceholder')}
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      style={{
-                        width: '100%',
-                        padding: '0.85rem 1rem',
-                        borderRadius: 'var(--radius-sm)',
-                        background: 'var(--bg-primary)',
-                        border: '1px solid var(--border-color)',
-                        color: 'var(--text-main)',
-                        fontSize: '0.95rem',
-                        outline: 'none'
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-                    {t('contact.subjectLabel')}
-                  </label>
-                  <select
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '0.85rem 1rem',
-                      borderRadius: 'var(--radius-sm)',
-                      background: 'var(--bg-primary)',
-                      border: '1px solid var(--border-color)',
-                      color: 'var(--text-main)',
-                      fontSize: '0.95rem',
-                      outline: 'none'
-                    }}
-                  >
-                    <option value={t('contact.subjects.rep')}>{t('contact.subjects.rep')}</option>
-                    <option value={t('contact.subjects.training')}>{t('contact.subjects.training')}</option>
-                    <option value={t('contact.subjects.refs')}>{t('contact.subjects.refs')}</option>
-                    <option value={t('contact.subjects.other')}>{t('contact.subjects.other')}</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-                    {t('contact.messageLabel')}
-                  </label>
-                  <textarea
-                    required
-                    rows="4"
-                    placeholder={t('contact.messagePlaceholder')}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    style={{
-                      width: '100%',
-                      padding: '0.85rem 1rem',
-                      borderRadius: 'var(--radius-sm)',
-                      background: 'var(--bg-primary)',
-                      border: '1px solid var(--border-color)',
-                      color: 'var(--text-main)',
-                      fontSize: '0.95rem',
-                      outline: 'none',
-                      resize: 'vertical'
-                    }}
-                  />
-                </div>
-
-                <button type="submit" className="btn btn-primary" style={{ padding: '0.95rem 1.5rem', marginTop: '0.5rem' }}>
-                  <Send size={18} />
-                  <span>{t('contact.submitBtn')}</span>
-                </button>
-              </form>
-            )}
-          </div>
-
         </div>
 
-      </div>
+        <div data-ix="staggar-load" style={{ width: '100%' }}>
+          {submitted ? (
+            <div className="success-message" role="status">
+              <h3 className="c-card__title">{t('contact.successTitle')}</h3>
+              <p className="c-card__text">{t('contact.successSub')}</p>
+              <button
+                type="button"
+                className="c-button-outline"
+                onClick={() => {
+                  setSubmitted(false);
+                  setForm({ name: '', contact: '', subject: 'rep', message: '' });
+                }}
+              >
+                {t('contact.sendAnother')}
+              </button>
+            </div>
+          ) : (
+            <form className="c-form" onSubmit={handleSubmit} noValidate>
+              {field('name', t('contact.nameLabel'), 'input', {
+                type: 'text',
+                maxLength: 120,
+                autoComplete: 'name',
+                placeholder: t('contact.namePlaceholder')
+              })}
 
-      <style>{`
-        @media (max-width: 900px) {
-          .contact-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .form-row {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
+              {field('contact', t('contact.emailOrPhoneLabel'), 'input', {
+                type: 'text',
+                maxLength: 160,
+                placeholder: t('contact.emailOrPhonePlaceholder')
+              })}
+
+              <fieldset style={{ border: 0, padding: 0, margin: 0 }}>
+                <legend className="c-field__label" style={{ padding: 0 }}>
+                  {t('contact.subjectLabel')}
+                </legend>
+                <div className="c-radios-inner" style={{ marginTop: '0.75rem' }}>
+                  {SUBJECT_KEYS.map((key) => (
+                    <label
+                      key={key}
+                      className={`c-radio-label${form.subject === key ? ' is-checked' : ''}`}
+                    >
+                      <input
+                        type="radio"
+                        name="subject"
+                        value={key}
+                        checked={form.subject === key}
+                        onChange={update('subject')}
+                        className="u-visually-hidden"
+                      />
+                      {t(`contact.subjects.${key}`)}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+
+              {field('message', t('contact.messageLabel'), 'textarea', {
+                rows: 4,
+                maxLength: 1200,
+                placeholder: t('contact.messagePlaceholder')
+              })}
+
+              <div className="c-button-group">
+                <button type="submit" className="c-button">
+                  {t('contact.submitBtn')}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
     </section>
   );
 }
