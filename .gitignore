@@ -28,3 +28,6 @@ dist-ssr
 
 # Third-party stock imagery from the design reference — not ours to ship
 reference/stock/
+
+# Personal scratch list
+TODO.md

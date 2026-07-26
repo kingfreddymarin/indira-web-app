@@ -21,6 +21,26 @@ export default function References() {
           {t('references.subtitle')}
         </p>
 
+        <div className="c-media-frame c-media-frame--wide" data-ix="load-under">
+          <picture>
+            <source
+              type="image/webp"
+              srcSet="/images/network-640.webp 640w, /images/network-960.webp 960w, /images/network-1440.webp 1440w"
+              sizes="(min-width: 900px) 70vw, 100vw"
+            />
+            <img
+              src="/images/network-960.jpg"
+              srcSet="/images/network-640.jpg 640w, /images/network-960.jpg 960w, /images/network-1440.jpg 1440w"
+              sizes="(min-width: 900px) 70vw, 100vw"
+              alt=""
+              role="presentation"
+              width="1447"
+              height="1087"
+              loading="lazy"
+            />
+          </picture>
+        </div>
+
         <div className="c-grid roomy" data-ix="staggar-load">
           {Array.isArray(quotes) &&
             quotes.map((quote) => (
