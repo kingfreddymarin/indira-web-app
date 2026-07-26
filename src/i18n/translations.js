@@ -45,6 +45,18 @@ export const translations = {
       philosophyText2: "Mi filosofía se fundamenta en la ética médica, la docencia continuada en centros hospitalarios y farmacias, y la rápida transferencia de conocimiento farmacológico de punta para garantizar diagnósticos y tratamientos óptimos en el paciente.",
       degreeTitle: "Licenciatura en Química y Farmacia",
       degreeSub: "Instituto Superior de Ciencias Médicas de Santiago de Cuba & Universidad de Occidente (2009)",
+      educationItems: [
+        {
+          year: "2009",
+          title: "Licenciatura en Química y Farmacia",
+          sub: "Instituto Superior de Ciencias Médicas de Santiago de Cuba & Universidad de Occidente"
+        },
+        {
+          year: "2002",
+          title: "Bachiller en Ciencias y Letras",
+          sub: "Preuniversitario Cuqui Bosch"
+        }
+      ],
       skillsTitle: "Habilidades y Competencias Clave",
       mobilityTitle: "Movilidad Garantizada",
       mobilitySub: "Hyundai Accent 2018 (Vehículo Propio)",
@@ -484,6 +496,18 @@ export const translations = {
       philosophyText2: "My philosophy is rooted in medical ethics, continuous education in hospital centers and retail pharmacies, and the swift transfer of cutting-edge pharmacological insights to ensure optimal patient diagnosis and treatment.",
       degreeTitle: "Bachelor's Degree in Chemistry & Pharmacy",
       degreeSub: "Higher Institute of Medical Sciences of Santiago de Cuba & Universidad de Occidente (2009)",
+      educationItems: [
+        {
+          year: "2009",
+          title: "Bachelor's Degree in Chemistry & Pharmacy",
+          sub: "Higher Institute of Medical Sciences of Santiago de Cuba & Universidad de Occidente"
+        },
+        {
+          year: "2002",
+          title: "High School Diploma in Sciences & Humanities",
+          sub: "Preuniversitario Cuqui Bosch"
+        }
+      ],
       skillsTitle: "Core Competencies & Key Strengths",
       mobilityTitle: "Guaranteed Mobility",
       mobilitySub: "Hyundai Accent 2018 (Owned Vehicle)",

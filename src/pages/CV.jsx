@@ -106,6 +106,7 @@ export default function CV() {
   const activeId = useScrollSpy(sectionIds, 140);
 
   const experience = t('experience.items') || [];
+  const education = t('about.educationItems') || [];
   const skills = t('about.skillsList') || [];
   const specialties = t('specialties.items') || [];
   const awards = t('achievements.items') || [];
@@ -281,13 +282,15 @@ export default function CV() {
 
           {section(
             'education',
-            '2009',
+            `${education.length}`,
             <div className="cv-records">
-              <div className="cv-record">
-                <span className="cv-record__year">2009</span>
-                <span className="cv-record__title">{t('about.degreeTitle')}</span>
-                <span className="cv-record__sub">{t('about.degreeSub')}</span>
-              </div>
+              {education.map((item) => (
+                <div className="cv-record" key={item.year + item.title}>
+                  <span className="cv-record__year">{item.year}</span>
+                  <span className="cv-record__title">{item.title}</span>
+                  <span className="cv-record__sub">{item.sub}</span>
+                </div>
+              ))}
             </div>
           )}
 
