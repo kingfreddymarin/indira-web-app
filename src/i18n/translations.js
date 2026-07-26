@@ -62,12 +62,12 @@ export const translations = {
       mobilitySub: "Hyundai Accent 2018 (Vehículo Propio)",
       mobilityBadge: "Disponibilidad Total",
       skillsList: [
-        "Facilidad de expresión e interlocución con médicos especialistas",
-        "Gestión proactiva y orientada a resultados de ventas",
-        "Docencia médica continuada en hospitales y farmacias",
-        "Monitoreo estricto de Farmacovigilancia",
-        "Negociación y relación comercial con cadenas de farmacias",
-        "Trabajo dinámico en equipo y cobertura territorial estratégica"
+        "Facilidad de expresión con las personas",
+        "Proactiva",
+        "Dinámica",
+        "Entusiasta",
+        "Enfocada en resultados del trabajo",
+        "Destreza para trabajar en equipo"
       ]
     },
     experience: {
@@ -96,7 +96,7 @@ export const translations = {
           company: "PHARMAINSA",
           period: "Feb 2020 - Oct 2023",
           role: "Visitadora Médica de Líneas Exclusivas",
-          location: "Nicaragua (Nivel Nacional)",
+          location: "Nicaragua",
           badge: "Distribuidora Exclusiva",
           description: "Gestión comercial y promoción médica de tres líneas farmacéuticas de representación exclusiva.",
           products: ["Líneas Farmacéuticas Exclusivas Parmainsa"],
@@ -121,7 +121,7 @@ export const translations = {
           company: "IMFARSA",
           period: "Ene 2016 - Ago 2019",
           role: "Visitadora de Laboratorios ISIS Pharma (Línea DERMA)",
-          location: "Managua y Red de Dermatólogos",
+          location: "Nicaragua",
           badge: "Dermatología Avanzada",
           description: "Promoción médica especializada de la afamada marca internacional ISIS Pharma en el segmento dermatológico.",
           products: ["ISIS PHARMA (Línea Derma)"],
@@ -134,7 +134,7 @@ export const translations = {
           company: "Grupo Menarini",
           period: "Jul 2013 - Dic 2015",
           role: "Visitadora Médica Multilínea",
-          location: "Managua y Occidente (León / Chinandega)",
+          location: "Managua y Occidente",
           badge: "Líder Centroamérica & Caribe",
           description: "Desarrollo y mantenimiento de una amplia cartera terapéutica cardiovascular, ginecológica, gastroenterológica, dolor y ortopedia.",
           products: ["Nebilet", "Benicar", "Carbimen", "Zofenil", "Badyket", "Disgren"],
@@ -163,7 +163,7 @@ export const translations = {
     seo: {
       home: {
         title: "Licda. Indira Perea Milán | Visitadora Médica y Representante Farmacéutica en Nicaragua",
-        description: "Licenciada en Química y Farmacia con más de 15 años como visitadora médica en Nicaragua. Experiencia en Pfizer, Grupo Menarini y Laboratorios Hessel en cardiología, dermatología, hiperlipidemia y dolor. Cobertura en Managua, León, Chinandega y Granada."
+        description: "Licenciada en Química y Farmacia con más de 15 años como visitadora médica en Nicaragua. Experiencia en Pfizer, Grupo Menarini y Laboratorios Hessel en cardiología, dermatología, hiperlipidemia y dolor. Cobertura en Managua, Occidente y Granada."
       },
       cv: {
         title: "Curriculum Vitae | Licda. Indira Perea Milán, Visitadora Médica en Nicaragua",
@@ -191,7 +191,7 @@ export const translations = {
         references: "Referencias"
       },
       objectiveTitle: "Objetivo",
-      objectiveText: "Ser un pilar estratégico para el fortalecimiento corporativo, trabajando con visión emprendedora, liderazgo en equipo y enfoque constante al cumplimiento de metas de ventas y docencia médica.",
+      objectiveText: "Ser un pilar fuerte para el fortalecimiento de la empresa y de esta manera poder lograr con un espíritu emprendedor, trabajando en equipo, para lograr metas en ventas.",
       personalTitle: "Datos personales",
       phone: "Teléfono",
       email: "Correo",
@@ -329,40 +329,26 @@ export const translations = {
       subtitle: "Presencia directa en los principales centros hospitalarios, redes de especialidad y farmacias clave del país.",
       keyLocationsLabel: "Puntos Clave de Visitación:",
       bannerTitle: "Movilidad Propia e Integración Inmediata",
-      bannerSubtitle: "Vehículo Hyundai Accent 2018 para visitas constantes en Managua, León, Chinandega y Granada sin limitaciones logísticas.",
+      bannerSubtitle: "Vehículo propio (Hyundai Accent 2018) para movilidad entre las zonas de cobertura declaradas: Managua, Occidente y Granada.",
       bannerBtn: "Coordinar Visita Médica",
       items: [
         {
           region: "Managua",
-          badge: "Capital & Sede Central",
-          details: "Núcleo de visitas especializadas a cardiólogos, internistas, dermatólogos y ginecólogos clave.",
-          keyLocations: [
-            "Hospital Vivian Pellas",
-            "Hospital Militar Dr. Alejandro Dávila Bolaños",
-            "Hospital Bautista",
-            "Centros Médicos Especializados",
-            "Principales Cadenas de Farmacia (Farmacias Kielsa, Medina, etc.)"
-          ]
+          badge: "Zona recurrente",
+          details: "Zona de cobertura mencionada en Pfizer, Grupo Menarini, Pharmainsa, IMFARSA, GUTI y Laboratorios Hessel.",
+          keyLocations: []
         },
         {
           region: "Occidente",
-          badge: "León & Chinandega",
-          details: "Zona de alta rotación médica atendida históricamente para Pfizer y Grupo Menarini.",
-          keyLocations: [
-            "Hospital Escuela Oscar Danilo Rosales (HEODRA)",
-            "Red de Clínicas Privadas de León",
-            "Clínicas y Farmacias de Chinandega"
-          ]
+          badge: "Pfizer & Grupo Menarini",
+          details: "Zona de cobertura declarada durante las etapas en Pfizer (2010-2013) y Grupo Menarini (2013-2015).",
+          keyLocations: []
         },
         {
           region: "Granada",
-          badge: "Oriente",
-          details: "Cobertura directa para la línea de Hiperlipidemia de Laboratorios Hessel y líneas institucionales.",
-          keyLocations: [
-            "Hospital Japón Nicaragua",
-            "Consultorios Especializados en Granada",
-            "Red de Farmacias Locales"
-          ]
+          badge: "Laboratorios Hessel",
+          details: "Zona de cobertura declarada durante la etapa en Laboratorios Hessel (2023-2025).",
+          keyLocations: []
         }
       ]
     },
@@ -513,12 +499,12 @@ export const translations = {
       mobilitySub: "Hyundai Accent 2018 (Owned Vehicle)",
       mobilityBadge: "Full Regional Availability",
       skillsList: [
-        "Eloquent communication and peer dialogue with medical specialists",
-        "Proactive sales management focused on target achievement",
-        "Continuous medical education in hospitals and pharmacies",
-        "Strict adherence to Pharmacovigilance protocols",
-        "Commercial negotiation and relationships with pharmacy chains",
-        "Dynamic teamwork and strategic territorial coverage"
+        "Eloquent communication with people",
+        "Proactive",
+        "Dynamic",
+        "Enthusiastic",
+        "Focused on work results",
+        "Skilled at teamwork"
       ]
     },
     experience: {
@@ -547,7 +533,7 @@ export const translations = {
           company: "PHARMAINSA",
           period: "Feb 2020 - Oct 2023",
           role: "Medical Representative - Exclusive Lines",
-          location: "Nicaragua (Nationwide)",
+          location: "Nicaragua",
           badge: "Exclusive Distributor",
           description: "Commercial management and medical promotion of three exclusively represented pharmaceutical lines.",
           products: ["Exclusive Parmainsa Pharmaceutical Lines"],
@@ -572,7 +558,7 @@ export const translations = {
           company: "IMFARSA",
           period: "Jan 2016 - Aug 2019",
           role: "Medical Representative - ISIS Pharma (Derma Line)",
-          location: "Managua & Dermatologist Network",
+          location: "Nicaragua",
           badge: "Advanced Dermatology",
           description: "Specialized medical promotion of global brand ISIS Pharma in the dermatology sector.",
           products: ["ISIS PHARMA (Derma Line)"],
@@ -585,7 +571,7 @@ export const translations = {
           company: "Menarini Group",
           period: "Jul 2013 - Dec 2015",
           role: "Multi-line Medical Representative",
-          location: "Managua & West Region (León / Chinandega)",
+          location: "Managua & West Region",
           badge: "Central America & Caribbean Leader",
           description: "Development and expansion of a comprehensive portfolio covering cardiovascular, gynecology, gastroenterology, pain, and orthopedics.",
           products: ["Nebilet", "Benicar", "Carbimen", "Zofenil", "Badyket", "Disgren"],
@@ -642,7 +628,7 @@ export const translations = {
         references: "References"
       },
       objectiveTitle: "Objective",
-      objectiveText: "To be a strategic pillar for corporate growth, working with an entrepreneurial outlook, team leadership, and a constant focus on meeting sales targets and medical education goals.",
+      objectiveText: "To be a strong pillar for the company's growth, working with an entrepreneurial spirit and as a team, in order to achieve sales targets.",
       personalTitle: "Personal details",
       phone: "Phone",
       email: "Email",
@@ -780,40 +766,26 @@ export const translations = {
       subtitle: "Direct presence in leading hospital centers, specialty practice networks, and key pharmacy chains nationwide.",
       keyLocationsLabel: "Key Detailing Hubs:",
       bannerTitle: "Independent Mobility & Immediate Availability",
-      bannerSubtitle: "2018 Hyundai Accent vehicle for seamless travel across Managua, León, Chinandega, and Granada without logistical constraints.",
+      bannerSubtitle: "Owned vehicle (Hyundai Accent 2018) for mobility across the declared coverage zones: Managua, West Region, and Granada.",
       bannerBtn: "Schedule a Detailing Meeting",
       items: [
         {
           region: "Managua",
-          badge: "Capital & Headquarters",
-          details: "Central hub for specialized detailing with key cardiologists, internists, dermatologists, and gynecologists.",
-          keyLocations: [
-            "Vivian Pellas Hospital",
-            "Dr. Alejandro Dávila Bolaños Military Hospital",
-            "Bautista Hospital",
-            "Specialized Medical Clinics",
-            "Major Pharmacy Chains (Kielsa, Medina, etc.)"
-          ]
+          badge: "Recurring zone",
+          details: "Coverage zone stated across Pfizer, Menarini Group, Pharmainsa, IMFARSA, GUTI, and Hessel Laboratories.",
+          keyLocations: []
         },
         {
           region: "West Region",
-          badge: "León & Chinandega",
-          details: "High-volume medical detailing zone historically covered for Pfizer and Menarini Group.",
-          keyLocations: [
-            "Oscar Danilo Rosales University Hospital (HEODRA)",
-            "Private Medical Clinics Network in León",
-            "Chinandega Clinics and Retail Pharmacies"
-          ]
+          badge: "Pfizer & Menarini Group",
+          details: "Coverage zone stated during the Pfizer (2010-2013) and Menarini Group (2013-2015) roles.",
+          keyLocations: []
         },
         {
           region: "Granada",
-          badge: "East Region",
-          details: "Direct coverage for Hessel Laboratories hyperlipidemia portfolio and institutional lines.",
-          keyLocations: [
-            "Japón Nicaragua Hospital",
-            "Specialized Physician Offices in Granada",
-            "Local Retail Pharmacy Network"
-          ]
+          badge: "Hessel Laboratories",
+          details: "Coverage zone stated during the Hessel Laboratories role (2023-2025).",
+          keyLocations: []
         }
       ]
     },
