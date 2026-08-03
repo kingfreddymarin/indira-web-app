@@ -17,7 +17,7 @@
 export const LAB_ORDER = [
   'Laboratorios Hessel',
   'PHARMAINSA',
-  'GUTI',
+  'GUTIS',
   'IMFARSA',
   'Grupo Menarini',
   'Pfizer'
@@ -27,7 +27,7 @@ export const LAB_ORDER = [
 export const LAB_LABELS = {
   'Laboratorios Hessel': { es: 'Laboratorios Hessel', en: 'Hessel Laboratories' },
   PHARMAINSA: { es: 'PHARMAINSA', en: 'PHARMAINSA' },
-  GUTI: { es: 'GUTI', en: 'GUTI' },
+  GUTIS: { es: 'GUTIS', en: 'GUTIS' },
   IMFARSA: { es: 'IMFARSA', en: 'IMFARSA' },
   'Grupo Menarini': { es: 'Grupo Menarini', en: 'Menarini Group' },
   Pfizer: { es: 'Pfizer', en: 'Pfizer' }
@@ -39,8 +39,8 @@ export const portfolio = [
   { brand: 'Colestor Z', lab: 'Laboratorios Hessel', areaKey: 'hiperlipidemia', from: 2023, to: 2025 },
   { brand: 'Colestop', lab: 'Laboratorios Hessel', areaKey: 'hiperlipidemia', from: 2023, to: 2025 },
 
-  // GUTI — Sep 2019 to Jan 2020
-  { brand: 'Relucit', lab: 'GUTI', areaKey: 'dolor', from: 2019, to: 2020 },
+  // GUTIS — Sep 2019 to Jan 2020
+  { brand: 'Relucit', lab: 'GUTIS', areaKey: 'dolor', from: 2019, to: 2020 },
 
   // IMFARSA — Jan 2016 to Aug 2019
   { brand: 'ISIS Pharma', lab: 'IMFARSA', areaKey: 'derma', from: 2016, to: 2019 },

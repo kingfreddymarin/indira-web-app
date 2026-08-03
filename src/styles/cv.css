@@ -600,24 +600,40 @@
    Print — produce an actual CV document
    -------------------------------------------------------------------------- */
 @media print {
+  /* A4 with narrow margins. The whole document is re-typeset in points so the
+     printed copy lands on four pages: masthead + profile, experience, the rest
+     of the record sections, references. Everything on screen that is
+     interactive (toolbar, index, accordion affordances) disappears. */
   @page {
-    margin: 16mm 14mm;
+    size: A4;
+    margin: 12mm 13mm 10mm;
+  }
+
+  html,
+  body {
+    background: #fff;
   }
 
   .cv-bar,
-  .cv-index {
+  .cv-index,
+  .cv-entry__icon,
+  .cv-section__meta {
     display: none !important;
   }
 
   .cv {
     background: #fff;
     padding: 0;
+    min-height: 0;
+    font-size: 9.6pt;
+    line-height: 1.45;
   }
 
   .cv-layout {
     display: block;
     max-width: none;
     padding: 0;
+    gap: 0;
   }
 
   .cv-masthead,
@@ -628,56 +644,235 @@
     margin-inline: 0;
   }
 
-  /* Every collapsed record opens for the printed copy */
+  /* --- Masthead --------------------------------------------------------- */
+  .cv-masthead {
+    padding: 0;
+  }
+
+  .cv-masthead__head {
+    gap: 10mm;
+  }
+
+  .cv-masthead__doc {
+    font-size: 6.5pt;
+  }
+
+  .cv-masthead__name {
+    font-size: 30pt;
+    margin-top: 3pt;
+  }
+
+  .cv-masthead__role {
+    font-size: 11.5pt;
+    margin-top: 6pt;
+    max-width: 60ch;
+  }
+
+  .cv-portrait {
+    width: 32mm;
+    aspect-ratio: 4 / 5;
+  }
+
+  .cv-contact {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5pt 6mm;
+    margin-top: 11pt;
+    padding-top: 10pt;
+  }
+
+  .cv-contact dt {
+    font-size: 6.5pt;
+  }
+
+  .cv-contact dd {
+    font-size: 9.2pt;
+  }
+
+  .cv-contact a {
+    border-bottom: 0;
+  }
+
+  /* --- Section chrome ---------------------------------------------------- */
+  .cv-section {
+    padding-top: 11pt;
+  }
+
+  .cv-section__head {
+    padding-bottom: 5pt;
+    border-bottom-width: 1.2pt;
+    break-after: avoid;
+  }
+
+  .cv-section__title {
+    font-size: 13.5pt;
+  }
+
+  /* Four pages, each a coherent chapter: 1–2 masthead + perfil + experiencia,
+     3 formación / competencias / áreas, 4 reconocimientos / cobertura /
+     referencias. */
+  #cv-education,
+  #cv-awards {
+    break-before: page;
+    padding-top: 0;
+  }
+
+  .cv-prose {
+    gap: 7pt;
+    padding-top: 10pt;
+    max-width: none;
+  }
+
+  .cv-prose p {
+    margin: 0;
+  }
+
+  /* --- Experience -------------------------------------------------------- */
+  /* Every collapsed role opens for the printed copy — React keeps an inline
+     height on the panel, so this has to win with !important. */
   .cv-entry__panel {
     height: auto !important;
     overflow: visible !important;
   }
 
-  .cv-entry__icon {
-    display: none;
-  }
-
+  /* The label/value pairs run inline in print — stacked they cost three extra
+     lines per role, which is most of a page across six roles. */
   .cv-entry__trigger {
-    padding-bottom: 0.5rem;
+    grid-template-columns: 23mm 1fr;
+    gap: 2pt 5mm;
+    padding: 10pt 0 0;
   }
 
-  /* Sections flow across pages; only individual records stay whole, so a long
-     Experience list doesn't push a mostly-empty page. */
-  .cv-section {
-    padding-top: 1.25rem;
+  .cv-entry__years {
+    font-size: 7.4pt;
+    padding-top: 0.35em;
   }
 
-  /* The on-screen count reads like a page number in print */
-  .cv-section__meta {
-    display: none;
+  .cv-entry__company {
+    font-size: 12.5pt;
   }
 
-  .cv-section__head {
-    break-after: avoid;
+  .cv-entry__role {
+    font-size: 9.2pt;
   }
 
-  .cv-entry,
-  .cv-record {
-    break-inside: avoid;
+  .cv-entry__inner {
+    gap: 4pt;
+    padding: 4pt 0 10pt 28mm;
+    /* label column + gap, so values align with the role heading */
+    max-width: none;
   }
 
-  .cv-masthead__name {
-    font-size: 28pt;
+  .cv-entry__inner > p {
+    margin: 0;
   }
 
-  .cv-section__title {
-    font-size: 13pt;
+  .cv-field {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 5mm;
+    margin: 0 !important;
   }
 
-  body,
-  .cv {
-    font-size: 10pt;
+  .cv-field__label {
+    flex: 0 0 26mm;
+    font-size: 7pt;
+    letter-spacing: 0.09em;
+  }
+
+  .cv-field > p {
+    margin: 0;
+  }
+
+  .cv-list {
+    padding-left: 11pt;
+    gap: 3pt;
+    font-size: 9.2pt;
+    line-height: 1.42;
+    margin: 0 !important;
+  }
+
+  .cv-taglist {
+    gap: 3pt;
+    margin: 0 !important;
   }
 
   .cv-tag {
-    border: 1px solid #999;
+    font-size: 7.6pt;
+    padding: 1pt 6pt;
+    border: 0.6pt solid #9a9a9a;
     background: transparent;
+  }
+
+  /* --- Record rows ------------------------------------------------------- */
+  .cv-record {
+    grid-template-columns: 23mm 1fr;
+    gap: 2pt 5mm;
+    padding: 5pt 0;
+    border-bottom-width: 0.6pt;
+  }
+
+  .cv-record__year {
+    font-size: 7.4pt;
+    padding-top: 0.2em;
+  }
+
+  .cv-record__title {
+    font-size: 10.4pt;
+  }
+
+  .cv-record__sub,
+  .cv-record__body {
+    font-size: 9.2pt;
+    line-height: 1.38;
+  }
+
+  .cv-record__body {
+    margin-top: 1.5pt;
+  }
+
+  .cv-skills {
+    padding-top: 8pt;
+    column-gap: 8mm;
+  }
+
+  .cv-skills li {
+    padding: 6pt 0;
+    font-size: 9.2pt;
+    border-bottom-width: 0.6pt;
+  }
+
+  .cv-note {
+    padding-top: 6pt;
+    font-size: 8.8pt;
+    max-width: none;
+  }
+
+  .cv-foot {
+    margin-top: 9pt;
+    padding: 6pt 0 0;
+    font-size: 7.6pt;
+    break-inside: avoid;
+  }
+
+  /* A long role may flow across the fold, but never right after its heading,
+     and never inside a single bullet or label/value pair. Short records stay
+     whole. */
+  .cv-entry,
+  .cv-record,
+  .cv-masthead__head,
+  .cv-field,
+  .cv-list li,
+  .cv-skills li {
+    break-inside: avoid;
+  }
+
+  .cv-field__label {
+    break-after: avoid;
+  }
+
+  /* Roles three through six open page two, so no role is ever cut in half. */
+  .cv-entry:nth-child(3) {
+    break-before: page;
   }
 
   a {

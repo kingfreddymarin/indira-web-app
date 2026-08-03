@@ -106,8 +106,8 @@ export const translations = {
           ]
         },
         {
-          company: "GUTI",
-          period: "Sep 2019 - Enero 2020",
+          company: "GUTIS",
+          period: "Sep 2019 - Ene 2020",
           role: "Representante Médico de Línea RELUCIT",
           location: "Nicaragua",
           badge: "Línea Relucit",
@@ -335,7 +335,7 @@ export const translations = {
         {
           region: "Managua",
           badge: "Zona recurrente",
-          details: "Zona de cobertura mencionada en Pfizer, Grupo Menarini, Pharmainsa, IMFARSA, GUTI y Laboratorios Hessel.",
+          details: "Zona de cobertura mencionada en Pfizer, Grupo Menarini, Pharmainsa, IMFARSA, GUTIS y Laboratorios Hessel.",
           keyLocations: []
         },
         {
@@ -543,7 +543,7 @@ export const translations = {
           ]
         },
         {
-          company: "GUTI",
+          company: "GUTIS",
           period: "Sep 2019 - Jan 2020",
           role: "Medical Representative - RELUCIT Line",
           location: "Nicaragua",
@@ -772,7 +772,7 @@ export const translations = {
         {
           region: "Managua",
           badge: "Recurring zone",
-          details: "Coverage zone stated across Pfizer, Menarini Group, Pharmainsa, IMFARSA, GUTI, and Hessel Laboratories.",
+          details: "Coverage zone stated across Pfizer, Menarini Group, Pharmainsa, IMFARSA, GUTIS, and Hessel Laboratories.",
           keyLocations: []
         },
         {

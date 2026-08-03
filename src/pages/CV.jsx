@@ -229,7 +229,7 @@ export default function CV() {
             </div>
             <div>
               <dt>{t('cv.vehicle')}</dt>
-              <dd>{personalInfo.vehicle}</dd>
+              <dd>{t('about.mobilitySub')}</dd>
             </div>
           </dl>
         </header>

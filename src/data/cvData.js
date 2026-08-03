@@ -56,8 +56,8 @@ export const timelineData = [
     ]
   },
   {
-    company: "GUTI",
-    period: "Sep 2019 - Enero 2020",
+    company: "GUTIS",
+    period: "Sep 2019 - Ene 2020",
     role: "Representante Médico de Línea RELUCIT",
     location: "Nicaragua",
     badge: "Línea Relucit",
@@ -149,7 +149,7 @@ export const specialtiesData = [
     icon: "ShieldAlert",
     description: "Analgésicos, antiinflamatorios no esteroideos (AINEs) y terapias para manejo del dolor agudo y crónico.",
     products: ["Valdine", "Valdureim", "Badyket", "Relucit"],
-    laboratories: ["Pfizer", "Grupo Menarini", "GUTI"]
+    laboratories: ["Pfizer", "Grupo Menarini", "GUTIS"]
   },
   {
     id: "hiperlipidemia",
